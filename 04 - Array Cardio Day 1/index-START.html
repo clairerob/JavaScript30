@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Array Cardio 💪</title>
 </head>
+
 <body>
   <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
   <script>
@@ -34,32 +36,89 @@
       'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
       'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
     ];
-    
+
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
+    const ex1500s = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+
+    console.table(ex1500s);
 
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
 
+    const exFirstAndLast = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+
+    console.log(exFirstAndLast);
+
+    const exFirstAndLast2 = inventors.reduce((arr, curr) => {
+      return [...arr, `${curr.first} ${curr.last}`]
+    }, []);
+    console.log(exFirstAndLast2);
+
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
+    const exSortByAge = inventors.sort((a, b) => a.year - b.year);
+    console.table(exSortByAge);
 
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
+    const exTotalLived = inventors.reduce((acc, curr) => {
+      const currLived = curr.passed - curr.year;
+      return acc + currLived;
+    }, 0);
+    console.log(exTotalLived);
+
+    const exEachLived = inventors.map(inventor => inventor.passed - inventor.year);
+    console.log(exEachLived);
 
     // 5. Sort the inventors by years lived
+    const exSortByYearsLived = inventors.sort((a, b) => {
+      return (a.passed - a.year) - (b.passed - b.year)
+    });
+    console.table(exSortByYearsLived);
 
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+    //inspect whatever contains the items to find the nodes
+    console.log('this one you have to do in the console on that page');
+    // const category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
+    // const linksAlt = [...category.querySelectorAll('a')];
 
+    // const de = links
+    //   .map(link => link.textContent)
+    //   .filter(street => street.includes('de'));
+
+    // console.log(de);
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
+    const ex7SortByName = people.sort((a, b) => a - b);
+
+    const ex7SortByLastName = people.sort((a, b) => {
+      const [aLast, aFirst] = a.split(', ');
+      const [bLast, bFirst] = b.split(', ');
+      return aLast - bLast;
+    });
+
+    console.log(ex7SortByName);
+    console.log(ex7SortByLastName);
+    console.log('they did the same thing');
 
     // 8. Reduce Exercise
     // Sum up the instances of each of these
-    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck'];
+
+    const exTransports = data.reduce((acc, cur) => {
+      if (!acc[cur]) {
+        acc[cur] = 0;
+      };
+      acc[cur]++;
+      return acc;
+    }, {});
+    console.log(exTransports);
 
   </script>
 </body>
+
 </html>
